@@ -7,6 +7,7 @@
       "name": "halloween",
       "description": "A haunted Clawd in the spinner: pumpkin, ghost, zombie, witch and devil, cycling with Halloween effects",
       "homepage": "https://github.com/whirlwin/claude-code-halloween",
+      "license": "MIT",
       "category": "seasonal",
       "tags": ["spinner", "theme", "halloween", "animation"],
       "source": { "source": "url", "url": "https://github.com/whirlwin/claude-code-halloween.git" }
@@ -15,6 +16,7 @@
       "name": "hackernews",
       "description": "The Hacker News front page in the spinner: an animated HN tile beside the top 30 stories, rotating, with links",
       "homepage": "https://github.com/whirlwin/claude-code-hackernews",
+      "license": "MIT",
       "category": "news",
       "tags": ["spinner", "theme", "hacker-news", "news"],
       "source": { "source": "url", "url": "https://github.com/whirlwin/claude-code-hackernews.git" }
@@ -23,6 +25,7 @@
       "name": "vg",
       "description": "The latest from VG in the spinner: a red VG tile beside the newest articles on vg.no (up to 20), rotating, with links",
       "homepage": "https://github.com/whirlwin/claude-code-vg",
+      "license": "MIT",
       "category": "news",
       "tags": ["spinner", "theme", "vg", "news", "norwegian"],
       "source": { "source": "url", "url": "https://github.com/whirlwin/claude-code-vg.git" }

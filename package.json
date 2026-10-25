@@ -2,6 +2,7 @@
   "name": "claude-code-themes",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Claude Code themes by whirlwin: the site and plugin marketplace at themes.whirlwin.io",
   "scripts": {
     "dev": "wrangler dev",

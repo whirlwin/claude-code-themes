@@ -149,3 +149,7 @@ whirlwin's own themes, and the site has no submission form, sign-in or
 database.
 
 Not affiliated with Anthropic, Y Combinator or Hacker News, or VG.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
