@@ -113,7 +113,9 @@ with `npx wrangler login`.
    `<article class="card theme ...">` elements and set its `id` to the plugin
    name. Give it the install command, the theme's own commands, a link to its
    repo, and its pictures, copied into `public/images/` and described in `alt`
-   text. Add a `.theme--<name>` rule to `styles.css` with its `--accent`
+   text. The first picture is the repo's `docs/demo.gif`, a real session
+   cropped to the spinner and the prompt box, 983x179 like the others, in a
+   `shot--demo` figure. Add a `.theme--<name>` rule to `styles.css` with its `--accent`
    color, plus a lighter `--accent-text` if the accent has less than 4.5:1
    contrast on the dark background. Add the theme to the status bar too.
 3. Run `npm run check`, then `npm run deploy`.
