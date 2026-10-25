@@ -1,0 +1,549 @@
+/* themes.whirlwin.io. The tokens, overlays, status bar and card come from
+   whirlwin.io's stylesheet, so the two sites read as one family. */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+
+  --bg:        #08100b;
+  --bg-2:      #0c1812;
+  --bg-3:      #11221a;
+  --ink:       #d7ead9;
+  --ink-dim:   #8aa295;
+  /* whirlwin.io sets small print in --ink-faint (#4a5a52), which is under 3:1
+     on these backgrounds. This site uses --ink-mute instead, which clears
+     4.5:1 on every background on the page. */
+  --ink-mute:  #7f968a;
+  --phosphor:  #82f4a3;
+  --phosphor-2:#3ad07a;
+  --amber:     #ffb454;
+  --rule:      #1c2c23;
+  --rule-hot:  #2a4434;
+
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --maxw: 66ch;
+  --pad:  clamp(1rem, 4vw, 2.5rem);
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(130, 244, 163, 0.06), transparent 60%),
+    radial-gradient(900px 600px at -10% 30%, rgba(255, 180, 84, 0.04), transparent 60%),
+    var(--bg);
+}
+
+a {
+  color: var(--phosphor);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--phosphor-2);
+  transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+a:hover { color: var(--bg); background: var(--phosphor); border-bottom-color: var(--phosphor); }
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--phosphor);
+  outline-offset: 2px;
+}
+
+::selection { background: var(--phosphor); color: var(--bg); }
+
+code { font-family: var(--mono); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Overlays: scanlines, vignette, grain ------------------------------- */
+
+.scanlines, .vignette, .grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 100;
+}
+.scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0 1px,
+    transparent 1px 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}
+.vignette {
+  background: radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+/* A file rather than whirlwin.io's data: URI, so the CSP needs no data:. */
+.grain {
+  opacity: 0.04;
+  background-image: url("/images/grain.svg");
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scanlines { animation: shift 18s steps(60) infinite; }
+}
+@keyframes shift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 60px; }
+}
+
+/* Status bar --------------------------------------------------------- */
+
+.statusbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.55rem var(--pad);
+  background: rgba(8, 16, 11, 0.88);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  color: var(--ink-dim);
+}
+.statusbar__logo {
+  display: flex; align-items: center; flex: none;
+  border-bottom: none;
+}
+.statusbar__logo img {
+  display: block;
+  height: 22px; width: auto;
+  opacity: 0.9;
+}
+.statusbar__logo:hover { background: transparent; }
+.statusbar__logo:hover img {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(130, 244, 163, 0.45));
+}
+.statusbar__nav {
+  flex: 1; min-width: 0;
+  display: flex; gap: 1.25rem;
+  /* `safe` falls back to start alignment when the nav overflows, so the
+     first items stay reachable instead of being clipped. */
+  justify-content: safe center;
+  overflow-x: auto; scrollbar-width: none;
+}
+.statusbar__nav::-webkit-scrollbar { display: none; }
+.statusbar__nav a {
+  color: var(--ink-dim);
+  border-bottom: none;
+  padding: 0.1rem 0.15rem;
+  white-space: nowrap;
+}
+.statusbar__nav a::before { content: "/"; color: var(--ink-mute); margin-right: 2px; }
+.statusbar__nav a:hover { color: var(--phosphor); background: transparent; }
+.statusbar__right { flex: none; white-space: nowrap; }
+.statusbar__right a { color: var(--ink-dim); border-bottom-color: var(--rule-hot); }
+.statusbar__right a:hover { color: var(--bg); }
+
+@media (max-width: 640px) {
+  /* The hero already shows the marketplace URL; the nav needs the width. */
+  .statusbar__right { display: none; }
+}
+@media (max-width: 480px) {
+  .statusbar { gap: 0.75rem; }
+  .statusbar__nav { gap: 0.85rem; font-size: 0.78rem; }
+}
+
+/* Layout ------------------------------------------------------------- */
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4.5rem) var(--pad) 4rem;
+}
+
+.block {
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding-top: clamp(1.5rem, 4vw, 2.25rem);
+  border-top: 1px dashed var(--rule);
+}
+
+.block__head {
+  display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+.block__head h2 {
+  margin: 0;
+  font: 700 clamp(1.25rem, 2.4vw, 1.6rem)/1.25 var(--mono);
+  color: var(--ink);
+}
+.block__meta {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--ink-mute);
+}
+
+/* Hero --------------------------------------------------------------- */
+
+.hero__title {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6ch;
+  margin: 0 0 1.25rem;
+  font: 700 clamp(1.9rem, 6.2vw, 3.1rem)/1.15 var(--mono);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+/* The title sits where Claude Code's spinner word would, so it gets the
+   spinner's glyph, turning through the same frames. */
+.spinner {
+  display: inline-block;
+  width: 1.1ch;
+  text-align: center;
+  color: var(--amber);
+  font-weight: 400;
+}
+.spinner::before { content: "\273B"; }
+@media (prefers-reduced-motion: no-preference) {
+  .spinner::before { animation: spin 0.96s infinite; }
+}
+@keyframes spin {
+  0%    { content: "\00B7"; }
+  12.5% { content: "\2722"; }
+  25%   { content: "\2736"; }
+  37.5% { content: "\273B"; }
+  50%   { content: "\273D"; }
+  62.5% { content: "\273B"; }
+  75%   { content: "\2736"; }
+  87.5% { content: "\2722"; }
+}
+.hero__by {
+  font-size: 0.42em;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink-dim);
+}
+.hero__lead {
+  max-width: var(--maxw);
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.hero__lead + .hero__lead { margin-top: -1.25rem; color: var(--ink-dim); font-size: 0.95rem; }
+
+/* Card (the window idiom from whirlwin.io) --------------------------- */
+
+.card {
+  position: relative;
+  background: linear-gradient(180deg, var(--bg-2), var(--bg));
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.card__chrome {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--ink-mute);
+}
+.card__dot {
+  flex: none;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--rule-hot);
+}
+.card__dot:nth-child(1) { background: #6b3a3a; }
+.card__dot:nth-child(2) { background: #6b5a3a; }
+.card__dot:nth-child(3) { background: #3a6b48; }
+.card__title {
+  margin-left: 0.5rem;
+  min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.card__body { padding: 1.1rem 1.15rem 1.25rem; }
+
+.card--terminal { max-width: 52rem; }
+
+/* Commands ----------------------------------------------------------- */
+
+.cmd + .cmd { margin-top: 1rem; }
+.cmd__where {
+  margin: 0 0 0.4rem;
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+}
+.cmd__line {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  padding: 0.55rem 0.55rem 0.55rem 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--cmd-rule, var(--phosphor-2));
+  border-radius: var(--radius);
+}
+/* The prompt is drawn by CSS, so selecting the line by hand copies only
+   the command. */
+.cmd__line::before {
+  content: ">";
+  flex: none;
+  padding-top: 0.15rem;
+  font-weight: 700;
+  color: var(--phosphor);
+}
+.cmd__line--shell::before { content: "$"; }
+.cmd__text {
+  flex: 1; min-width: 0;
+  padding-top: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+/* A plugin id moves to the next line whole rather than breaking at its
+   hyphen, and only wraps inside when a line is too narrow to hold it. */
+.cmd__id { display: inline-block; }
+.copy {
+  flex: none;
+  min-height: 28px;
+  padding: 0.15rem 0.6rem;
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  background: transparent;
+  border: 1px solid var(--rule-hot);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.copy:hover { color: var(--bg); background: var(--phosphor); border-color: var(--phosphor); }
+.copy[hidden] { display: none; }
+.cmd__after {
+  margin: 1.1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+}
+.cmd__after code { color: var(--ink); }
+
+/* Theme cards -------------------------------------------------------- */
+
+.themes { display: grid; gap: 1.5rem; }
+
+/* Each card wears its theme's colors: a bar across the top, a faint wash
+   under the window chrome, the name and the rule beside its commands.
+   --accent is never used for small text, where VG red falls under 4.5:1;
+   --accent-text is a shade of it that passes. */
+.theme {
+  --accent: var(--phosphor-2);
+  --accent-text: var(--phosphor);
+  --accent-bar: var(--accent);
+  --cmd-rule: var(--accent);
+  scroll-margin-top: 4.5rem;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 260px),
+    linear-gradient(180deg, var(--bg-2), var(--bg));
+}
+.theme::before {
+  content: "";
+  position: absolute; inset: 0 0 auto; height: 2px;
+  background: var(--accent-bar);
+}
+.theme--halloween {
+  --accent: #ff7518;
+  --accent-text: #ff7518;
+  --accent-code: #b38be6;
+  --accent-bar: linear-gradient(90deg, #ff7518 0 45%, #8e4fd6);
+}
+.theme--hackernews {
+  --accent: #ff6600;
+  --accent-text: #ff6600;
+}
+.theme--vg {
+  --accent: #dd1f02;
+  --accent-text: #ff5a3d;
+}
+
+.theme__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem 2.25rem;
+}
+/* Side by side only from the width where the longest install command,
+   /plugin install hackernews@whirlwin-themes, fits its column on one line. */
+@media (min-width: 1100px) {
+  .theme__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (min-width: 880px) {
+  .theme__body--aside { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+.theme__name {
+  margin: 0 0 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--accent-text);
+}
+.theme__name::before { content: "\203A  "; color: var(--ink-mute); font-weight: 400; }
+.theme__desc {
+  max-width: var(--maxw);
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+}
+.theme__desc strong { color: var(--ink); font-weight: 500; }
+.theme__repo {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  overflow-wrap: anywhere;
+}
+.theme__label {
+  margin: 0 0 0.4rem;
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+}
+.theme__use > * + .theme__label { margin-top: 1.1rem; }
+.theme__text > .theme__use { margin-top: 1.4rem; }
+
+.usage { margin: 0; font-size: 0.88rem; }
+.usage > div {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: 0.2rem 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule-hot);
+}
+.usage > div:first-child { padding-top: 0; }
+.usage dt code { color: var(--accent-code, var(--ink)); }
+.usage dd { margin: 0; color: var(--ink-dim); }
+@media (max-width: 480px) {
+  .usage > div { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Screenshots -------------------------------------------------------- */
+
+.theme__media { display: grid; gap: 1.5rem; margin-top: 1.75rem; }
+.shot { margin: 0; min-width: 0; }
+.shot__frame {
+  max-width: 100%;
+  width: fit-content;
+  line-height: 0;
+  background: #1e1e1e;
+  border: 1px solid var(--rule-hot);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.shot__frame img { display: block; max-width: 100%; height: auto; }
+.shot figcaption {
+  margin-top: 0.55rem;
+  max-width: var(--maxw);
+  font-size: 0.8rem;
+  color: var(--ink-mute);
+}
+.shot figcaption a { color: var(--ink-dim); border-bottom-color: var(--rule-hot); }
+.shot figcaption a:hover { color: var(--bg); }
+
+/* The costume frames are a tall column, drawn at half their pixel size. */
+.shot--tall img { width: 220px; }
+/* The animation strips are drawn at half size too, and scroll inside their
+   own frame when the screen is narrower than that. */
+.shot--strip .shot__frame { overflow-x: auto; }
+.shot--strip img { width: 904px; max-width: none; }
+/* Scaled to a phone's width, the session's text is too small to read, so
+   there it keeps its own size and scrolls like the strips. */
+@media (max-width: 720px) {
+  .shot--demo .shot__frame { overflow-x: auto; }
+  .shot--demo img { width: 983px; max-width: none; }
+}
+
+@media (max-width: 480px) {
+  .card__body { padding: 0.95rem 0.8rem 1.1rem; }
+  .cmd__line { gap: 0.55rem; padding-left: 0.65rem; }
+  .cmd__text { font-size: 0.84rem; }
+}
+
+/* 404 ---------------------------------------------------------------- */
+
+.lost__out {
+  max-width: 52rem;
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1rem;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.lost__out .prompt { color: var(--phosphor); font-weight: 700; }
+
+/* Notes -------------------------------------------------------------- */
+
+.notes {
+  max-width: 78ch;
+  margin: 0; padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+  color: var(--ink-dim);
+}
+.notes li {
+  position: relative;
+  padding: 0 0 0 1.6rem;
+}
+.notes li + li { margin-top: 1rem; }
+.notes li::before {
+  content: "\203A";
+  position: absolute; left: 0.3rem;
+  color: var(--phosphor);
+  font-weight: 700;
+}
+.notes strong { color: var(--ink); font-weight: 700; }
+.notes code, .prose code {
+  padding: 0 0.3rem;
+  font-size: 0.9em;
+  color: var(--ink);
+  background: var(--bg-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow-wrap: anywhere;
+}
+.prose { max-width: var(--maxw); color: var(--ink-dim); }
+
+/* Footer ------------------------------------------------------------- */
+
+.footer {
+  padding: 2rem var(--pad) 3rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-mute);
+}
+.footer p { margin: 0.35rem 0; }
+.footer a { color: var(--ink-dim); border-bottom-color: var(--rule-hot); }
+.footer a:hover { color: var(--bg); background: var(--phosphor); }
+
+/* Entry: the title rises in once ------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__title {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: rise 0.6s ease forwards 0.05s;
+  }
+}
+@keyframes rise {
+  to { opacity: 1; transform: none; }
+}

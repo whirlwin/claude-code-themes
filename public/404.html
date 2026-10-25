@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Page not found: Claude Code themes</title>
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#08100b" />
+    <!-- Root-absolute paths, because this page answers for any missing path, such as /a/b/c. -->
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+
+  <body>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="statusbar">
+      <a class="statusbar__logo" href="https://whirlwin.io/">
+        <img src="/images/whirlwin-lockup.png" alt="whirlwin.io" width="338" height="66" />
+      </a>
+      <nav class="statusbar__nav" aria-label="Themes">
+        <a href="/#halloween">halloween</a>
+        <a href="/#hackernews">hackernews</a>
+        <a href="/#vg">vg</a>
+      </nav>
+      <div class="statusbar__right">
+        <a href="/marketplace.json">marketplace.json</a>
+      </div>
+    </header>
+
+    <main>
+      <h1 class="hero__title">Page not found</h1>
+      <pre class="lost__out"><span class="prompt">$</span> cat this-page
+cat: this-page: No such file or directory</pre>
+      <p class="prose">
+        There is nothing at this address. The themes and the command that adds
+        the marketplace are on the <a href="/">front page</a>, and the catalog
+        itself is at <a href="/marketplace.json">/marketplace.json</a>.
+      </p>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Made by <a href="https://whirlwin.io/">whirlwin</a>. The site and the
+        catalog live at
+        <a href="https://github.com/whirlwin/claude-code-themes">github.com/whirlwin/claude-code-themes</a>.
+      </p>
+      <p>Not affiliated with Anthropic, Y Combinator or Hacker News, or VG.</p>
+    </footer>
+  </body>
+</html>

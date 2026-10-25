@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- The link preview card, public/og.png. Not deployed: README.md says how to
+     render it. The pictures are cropped out of the themes' own images in
+     public/images: the pumpkin from the screensaver, the tiles from the strips. -->
+<html lang="en"><head><meta charset="utf-8"><title>og card</title>
+<style>
+@font-face{font-family:"JetBrains Mono";src:url(/public/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2");font-weight:100 800}
+html,body{margin:0}
+body{width:1200px;height:627px;box-sizing:border-box;padding:58px 80px 54px;overflow:hidden;font-family:"JetBrains Mono",monospace;color:#d7ead9;
+display:flex;flex-direction:column;justify-content:space-between;
+background:radial-gradient(900px 500px at 85% -10%,rgba(130,244,163,.08),transparent 60%),radial-gradient(700px 500px at -10% 45%,rgba(255,180,84,.06),transparent 60%),#08100b}
+h1{margin:0;font-size:62px;font-weight:700;line-height:1.1;letter-spacing:-.01em;display:flex;align-items:baseline;gap:22px}
+h1 .g{color:#ffb454;font-weight:400}
+h1 .by{font-size:28px;font-weight:400;color:#8aa295;letter-spacing:0}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.t{position:relative;overflow:hidden;height:252px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:34px 0 22px;background:#1e1e1e;border:2px solid #2a4434;border-radius:8px}
+.t::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--bar,var(--a))}
+.t span{font-size:26px;color:var(--a)}
+.s{background-repeat:no-repeat}
+.halloween{--a:#ff7518;--bar:linear-gradient(90deg,#ff7518 45%,#8e4fd6);background:#000}
+.halloween .s{--k:.42;width:calc(575px*var(--k));height:calc(340px*var(--k));background-image:url(/public/images/halloween-screensaver.png);background-size:calc(2268px*var(--k)) calc(982px*var(--k));background-position:calc(-125px*var(--k)) calc(-60px*var(--k))}
+.hn{--a:#ff6600}.vg{--a:#ff5a3d;--bar:#dd1f02}
+.hn .s,.vg .s{--k:1.5625;image-rendering:pixelated;width:calc(96px*var(--k));height:calc(96px*var(--k));background-size:calc(1808px*var(--k)) calc(128px*var(--k));background-position:calc(-1024px*var(--k)) calc(-16px*var(--k))}
+.hn .s{background-image:url(/public/images/hackernews-preview.png)}
+.vg .s{background-image:url(/public/images/vg-preview.png)}
+p{margin:0;font-size:24px;color:#d7ead9}
+p i{font-style:normal;color:#82f4a3}
+</style></head><body>
+<h1><span class="g">&#x273B;</span>Claude Code themes<span class="by">by whirlwin</span></h1>
+<div class="row">
+<div class="t halloween"><div class="s"></div><span>Halloween</span></div>
+<div class="t hn"><div class="s"></div><span>Hacker News</span></div>
+<div class="t vg"><div class="s"></div><span>VG</span></div>
+</div>
+<p>/plugin marketplace add <i>https://themes.whirlwin.io/marketplace.json</i></p>
+</body></html>

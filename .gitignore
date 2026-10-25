@@ -1,0 +1,5 @@
+node_modules
+.wrangler
+.omc
+# Copied from .claude-plugin/marketplace.json by build.command in wrangler.jsonc
+public/marketplace.json

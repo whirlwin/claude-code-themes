@@ -1,0 +1,14 @@
+{
+  "name": "claude-code-themes",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Claude Code themes by whirlwin: the site and plugin marketplace at themes.whirlwin.io",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "claude plugin validate . && scripts/check.sh"
+  },
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  }
+}

@@ -1,0 +1,15 @@
+# Workers static assets reads this file and does not serve it.
+# A header set by two matching rules is joined with a comma, so the two
+# rules below never set the same header.
+
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# The catalog Claude Code downloads. Short cache so an update reaches users
+# within minutes; CORS so other sites and tools can read it.
+/marketplace.json
+  Content-Type: application/json; charset=utf-8
+  Cache-Control: public, max-age=300
+  Access-Control-Allow-Origin: *

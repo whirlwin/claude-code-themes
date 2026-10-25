@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Claude Code themes by whirlwin</title>
+    <meta name="description" content="Mods for Claude Code that take over the spinner while Claude works: a haunted Clawd for Halloween, the Hacker News front page and the latest from VG. Add the marketplace once, then install the themes you want." />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#08100b" />
+    <link rel="canonical" href="https://themes.whirlwin.io/" />
+
+    <!-- Link previews. og:image must be an absolute URL to a PNG or JPG, 1200x627. It is rendered from og/card.html. -->
+    <meta property="og:site_name" content="themes.whirlwin.io" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Claude Code themes by whirlwin" />
+    <meta property="og:description" content="Mods for Claude Code that take over the spinner while Claude works: Halloween, Hacker News and VG." />
+    <meta property="og:url" content="https://themes.whirlwin.io/" />
+    <meta property="og:image" content="https://themes.whirlwin.io/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta property="og:image:alt" content="Claude Code themes: a pumpkin Clawd, the orange HN tile and the red VG tile, with the command that adds the marketplace" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script src="/copy.js" defer></script>
+  </head>
+
+  <body>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="statusbar">
+      <a class="statusbar__logo" href="https://whirlwin.io/">
+        <img src="/images/whirlwin-lockup.png" alt="whirlwin.io" width="338" height="66" />
+      </a>
+      <nav class="statusbar__nav" aria-label="Themes">
+        <a href="#halloween">halloween</a>
+        <a href="#hackernews">hackernews</a>
+        <a href="#vg">vg</a>
+      </nav>
+      <div class="statusbar__right">
+        <a href="/marketplace.json">marketplace.json</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="title">
+        <h1 class="hero__title" id="title">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Claude Code themes</span>
+          <span class="hero__by">by whirlwin</span>
+        </h1>
+        <p class="hero__lead">
+          Mods for Claude Code that take over the spinner while Claude works.
+          In place of the usual spinner you get a haunted Clawd, the Hacker
+          News front page or the latest from VG, and it is gone the moment the
+          turn ends.
+        </p>
+        <p class="hero__lead">
+          Each theme is a plugin. Add this marketplace once, then install the
+          themes you want.
+        </p>
+
+        <div class="card card--terminal">
+          <div class="card__chrome">
+            <span class="card__dot"></span><span class="card__dot"></span><span class="card__dot"></span>
+            <span class="card__title">add the marketplace</span>
+          </div>
+          <div class="card__body">
+            <div class="cmd">
+              <p class="cmd__where">In a Claude Code session</p>
+              <div class="cmd__line">
+                <code class="cmd__text">/plugin marketplace add https://themes.whirlwin.io<wbr>/marketplace.json</code>
+                <button class="copy" type="button" hidden><span class="copy__label">copy</span><span class="visually-hidden"> the session command</span></button>
+              </div>
+            </div>
+            <div class="cmd">
+              <p class="cmd__where">From a shell</p>
+              <div class="cmd__line cmd__line--shell">
+                <code class="cmd__text">claude plugin marketplace add https://themes.whirlwin.io<wbr>/marketplace.json</code>
+                <button class="copy" type="button" hidden><span class="copy__label">copy</span><span class="visually-hidden"> the shell command</span></button>
+              </div>
+            </div>
+            <p class="cmd__after">
+              Then install a theme from the list below, for example
+              <code>/plugin install halloween@whirlwin-themes</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="themes-heading">
+        <header class="block__head">
+          <h2 id="themes-heading">Themes</h2>
+          <span class="block__meta">3 themes</span>
+        </header>
+
+        <div class="themes">
+          <article class="card theme theme--halloween" id="halloween" aria-labelledby="halloween-name">
+            <div class="card__chrome">
+              <span class="card__dot"></span><span class="card__dot"></span><span class="card__dot"></span>
+              <span class="card__title">halloween@whirlwin-themes</span>
+            </div>
+            <div class="card__body">
+              <div class="theme__body theme__body--aside">
+                <div class="theme__text">
+                  <h3 class="theme__name" id="halloween-name">Halloween</h3>
+                  <p class="theme__desc">
+                    A haunted Clawd in the spinner. While Claude works, a small
+                    animated Clawd takes the spinner's place and cycles through
+                    five Halloween costumes, nine seconds each, swapping in a
+                    puff of smoke: <strong>pumpkin, ghost, zombie, witch and
+                    devil</strong>. The word beside him comes from his costume,
+                    so it changes with every swap.
+                  </p>
+                  <p class="theme__repo">
+                    Source and docs:
+                    <a href="https://github.com/whirlwin/claude-code-halloween">github.com/whirlwin/claude-code-halloween</a>
+                  </p>
+                  <div class="theme__use">
+                    <p class="theme__label">Install</p>
+                    <div class="cmd__line">
+                      <code class="cmd__text">/plugin install <span class="cmd__id">halloween@whirlwin-themes</span></code>
+                      <button class="copy" type="button" hidden><span class="copy__label">copy</span><span class="visually-hidden"> the halloween install command</span></button>
+                    </div>
+                    <p class="theme__label">Use</p>
+                    <dl class="usage">
+                      <div><dt><code>/halloween</code></dt><dd>hide Clawd, or bring him back</dd></div>
+                      <div><dt><code>/halloween next</code></dt><dd>skip straight to the next costume</dd></div>
+                    </dl>
+                  </div>
+                </div>
+                <figure class="shot shot--tall">
+                  <div class="shot__frame">
+                    <img src="/images/halloween-preview.png" width="440" height="923" loading="lazy"
+                      alt="Ten spinner frames, two per costume: a pumpkin Clawd beside Carving and Scooping, a ghost Clawd beside Haunting and Lurking, a zombie Clawd beside Shambling and Groaning, a witch Clawd beside Brewing and Conjuring, and a devil Clawd beside Scheming and Tempting, each with the seconds Claude has been working." />
+                  </div>
+                  <figcaption>Two frames of each costume.</figcaption>
+                </figure>
+              </div>
+
+              <div class="theme__media">
+                <figure class="shot">
+                  <div class="shot__frame">
+                    <img src="/images/halloween-screensaver.png" width="2268" height="982" loading="lazy"
+                      alt="The screensaver's five costumes in large blocks, pumpkin, ghost, zombie, witch and devil, each with its word and how long the screensaver has run, and a costume swap in a puff of green, purple and orange smoke." />
+                  </div>
+                  <figcaption>
+                    He also comes as a bigger macOS screensaver, built from the
+                    mod's own frames. It is not part of the plugin: build it from
+                    the repo, as its
+                    <a href="https://github.com/whirlwin/claude-code-halloween#screensaver">README</a>
+                    describes.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="card theme theme--hackernews" id="hackernews" aria-labelledby="hackernews-name">
+            <div class="card__chrome">
+              <span class="card__dot"></span><span class="card__dot"></span><span class="card__dot"></span>
+              <span class="card__title">hackernews@whirlwin-themes</span>
+            </div>
+            <div class="card__body">
+              <div class="theme__body">
+                <div class="theme__about">
+                  <h3 class="theme__name" id="hackernews-name">Hacker News</h3>
+                  <p class="theme__desc">
+                    The Hacker News front page in the spinner. While Claude
+                    works, a small orange HN tile takes the spinner's place,
+                    beside one of the top 30 stories as HN lays it out: rank and
+                    title on the first line, points, author, age and comments
+                    under it. A new story every six seconds.
+                  </p>
+                  <p class="theme__desc">
+                    The title links to the article and the comments link to the
+                    HN thread. Cmd-click or ctrl-click one in iTerm2, Ghostty,
+                    kitty or WezTerm to open it.
+                  </p>
+                  <p class="theme__repo">
+                    Source and docs:
+                    <a href="https://github.com/whirlwin/claude-code-hackernews">github.com/whirlwin/claude-code-hackernews</a>
+                  </p>
+                </div>
+                <div class="theme__use">
+                  <p class="theme__label">Install</p>
+                  <div class="cmd__line">
+                    <code class="cmd__text">/plugin install <span class="cmd__id">hackernews@whirlwin-themes</span></code>
+                    <button class="copy" type="button" hidden><span class="copy__label">copy</span><span class="visually-hidden"> the hackernews install command</span></button>
+                  </div>
+                  <p class="theme__label">Use</p>
+                  <dl class="usage">
+                    <div><dt><code>/hackernews</code></dt><dd>hide the front page, or bring it back</dd></div>
+                    <div><dt><code>/hackernews next</code></dt><dd>skip straight to the next story</dd></div>
+                  </dl>
+                </div>
+              </div>
+
+              <div class="theme__media">
+                <figure class="shot shot--demo">
+                  <div class="shot__frame" tabindex="0" role="region" aria-label="Hacker News session recording, scrolls sideways on narrow screens">
+                    <img src="/images/hackernews-demo.gif" width="983" height="179" loading="lazy"
+                      alt="A real Claude Code session: while Claude runs a command, the orange HN tile sits in the spinner beside a front page story, with its rank and title on the first line and its points, author, age and comment count under it." />
+                  </div>
+                  <figcaption>A real session, rotating through the front page.</figcaption>
+                </figure>
+                <figure class="shot shot--strip">
+                  <div class="shot__frame" tabindex="0" role="region" aria-label="HN tile animation, scrolls sideways">
+                    <img src="/images/hackernews-preview.png" width="1808" height="128" loading="lazy"
+                      alt="Sixteen frames of the HN tile: the letters roll up out of the tile and back in from below, then a white band sweeps across it." />
+                  </div>
+                  <figcaption>The tile's roll and sweep, frame by frame. Each new story rolls the letters; halfway through a story, a band sweeps across.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+
+          <article class="card theme theme--vg" id="vg" aria-labelledby="vg-name">
+            <div class="card__chrome">
+              <span class="card__dot"></span><span class="card__dot"></span><span class="card__dot"></span>
+              <span class="card__title">vg@whirlwin-themes</span>
+            </div>
+            <div class="card__body">
+              <div class="theme__body">
+                <div class="theme__about">
+                  <h3 class="theme__name" id="vg-name">VG</h3>
+                  <p class="theme__desc">
+                    The newest VG articles in the spinner. While Claude works, a
+                    small tile with the letters VG in white on VG red takes the
+                    spinner's place, beside one of the newest articles on vg.no
+                    (up to 20): rank and title on the first line, and under it the
+                    section and age in Norwegian, as VG words them, such as
+                    <span lang="no">&ldquo;Nyheter &middot; for 23 minutter siden&rdquo;</span>.
+                    A new article every six seconds.
+                  </p>
+                  <p class="theme__desc">
+                    The articles come from VG's public RSS feed, and each title
+                    links to its article on vg.no. Cmd-click or ctrl-click it in
+                    iTerm2, Ghostty, kitty or WezTerm to open it.
+                  </p>
+                  <p class="theme__repo">
+                    Source and docs:
+                    <a href="https://github.com/whirlwin/claude-code-vg">github.com/whirlwin/claude-code-vg</a>
+                  </p>
+                </div>
+                <div class="theme__use">
+                  <p class="theme__label">Install</p>
+                  <div class="cmd__line">
+                    <code class="cmd__text">/plugin install <span class="cmd__id">vg@whirlwin-themes</span></code>
+                    <button class="copy" type="button" hidden><span class="copy__label">copy</span><span class="visually-hidden"> the vg install command</span></button>
+                  </div>
+                  <p class="theme__label">Use</p>
+                  <dl class="usage">
+                    <div><dt><code>/vg</code></dt><dd>hide the articles, or bring them back</dd></div>
+                    <div><dt><code>/vg next</code></dt><dd>skip straight to the next article</dd></div>
+                  </dl>
+                </div>
+              </div>
+
+              <div class="theme__media">
+                <figure class="shot shot--strip">
+                  <div class="shot__frame" tabindex="0" role="region" aria-label="VG tile animation, scrolls sideways">
+                    <img src="/images/vg-preview.png" width="1808" height="128" loading="lazy"
+                      alt="Sixteen frames of the red VG tile: the white letters roll up out of the tile and back in from below, then a white band sweeps across it." />
+                  </div>
+                  <figcaption>The tile's roll and sweep, frame by frame.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="notes-heading">
+        <header class="block__head">
+          <h2 id="notes-heading">Good to know</h2>
+        </header>
+        <ul class="notes">
+          <li>
+            <strong>Only one theme can draw the spinner at a time.</strong>
+            With two installed, which one you see depends on the order Claude
+            Code runs their hooks in. Hide one for the session with its own
+            command, such as <code>/halloween</code>, or keep it off with
+            <code>claude plugin disable halloween@whirlwin-themes</code>.
+          </li>
+          <li>
+            <strong>If you installed a theme from its own repo before, uninstall that copy first.</strong>
+            Those copies are <code>halloween@claude-code-halloween</code>,
+            <code>hackernews@claude-code-hackernews</code> and
+            <code>vg@claude-code-vg</code>. For example:
+            <code>claude plugin uninstall halloween@claude-code-halloween</code>.
+          </li>
+          <li>
+            <strong>To update a theme,</strong> refresh this marketplace with
+            <code>claude plugin marketplace update whirlwin-themes</code>, then
+            run <code>claude plugin update &lt;theme&gt;@whirlwin-themes</code>,
+            then <code>/reload-plugins</code> in an open session.
+          </li>
+          <li>
+            <strong>In the desktop app only the spinner's word changes.</strong>
+            The tiles, the Clawd and the links need the terminal.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Made by <a href="https://whirlwin.io/">whirlwin</a>. The site and the
+        catalog live at
+        <a href="https://github.com/whirlwin/claude-code-themes">github.com/whirlwin/claude-code-themes</a>.
+      </p>
+      <p>Not affiliated with Anthropic, Y Combinator or Hacker News, or VG.</p>
+    </footer>
+
+    <p class="visually-hidden" id="copy-status" aria-live="polite"></p>
+  </body>
+</html>

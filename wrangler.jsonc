@@ -1,0 +1,26 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "claude-code-themes",
+	// No "main": this Worker serves static assets only, so no code runs.
+	"compatibility_date": "2026-10-01",
+	"routes": [
+		{ "pattern": "themes.whirlwin.io", "custom_domain": true }
+	],
+	"workers_dev": false,
+	"preview_urls": false,
+	"assets": {
+		"directory": "./public",
+		"not_found_handling": "404-page"
+	},
+	// .claude-plugin/marketplace.json is the only copy of the catalog in git.
+	// Wrangler runs this before `wrangler dev` and `wrangler deploy`, so the
+	// site serves the same bytes at /marketplace.json.
+	// With a build command, `wrangler dev` reloads only when a watch_dir
+	// changes, so public/ is listed too or edits to the site would be served
+	// with stale ETags. cmp skips the copy when nothing changed, so the copy
+	// landing in public/ does not set off another run.
+	"build": {
+		"command": "cmp -s .claude-plugin/marketplace.json public/marketplace.json || cp .claude-plugin/marketplace.json public/marketplace.json",
+		"watch_dir": [".claude-plugin", "public"]
+	}
+}
