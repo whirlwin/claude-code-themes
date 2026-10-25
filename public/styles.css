@@ -63,8 +63,7 @@ a {
 a:hover { color: var(--bg); background: var(--phosphor); border-bottom-color: var(--phosphor); }
 
 a:focus-visible,
-button:focus-visible,
-[tabindex]:focus-visible {
+button:focus-visible {
   outline: 2px solid var(--phosphor);
   outline-offset: 2px;
 }
@@ -113,14 +112,12 @@ code { font-family: var(--mono); }
 
 .statusbar {
   position: sticky; top: 0; z-index: 50;
-  display: flex; align-items: center; gap: 1rem;
+  display: flex; align-items: center;
   padding: 0.55rem var(--pad);
   background: rgba(8, 16, 11, 0.88);
   backdrop-filter: blur(8px) saturate(140%);
   -webkit-backdrop-filter: blur(8px) saturate(140%);
   border-bottom: 1px solid var(--rule);
-  font-size: 0.8125rem;
-  color: var(--ink-dim);
 }
 .statusbar__logo {
   display: flex; align-items: center; flex: none;
@@ -136,65 +133,12 @@ code { font-family: var(--mono); }
   opacity: 1;
   filter: drop-shadow(0 0 6px rgba(130, 244, 163, 0.45));
 }
-.statusbar__nav {
-  flex: 1; min-width: 0;
-  display: flex; gap: 1.25rem;
-  /* `safe` falls back to start alignment when the nav overflows, so the
-     first items stay reachable instead of being clipped. */
-  justify-content: safe center;
-  overflow-x: auto; scrollbar-width: none;
-}
-.statusbar__nav::-webkit-scrollbar { display: none; }
-.statusbar__nav a {
-  color: var(--ink-dim);
-  border-bottom: none;
-  padding: 0.1rem 0.15rem;
-  white-space: nowrap;
-}
-.statusbar__nav a::before { content: "/"; color: var(--ink-mute); margin-right: 2px; }
-.statusbar__nav a:hover { color: var(--phosphor); background: transparent; }
-.statusbar__right { flex: none; white-space: nowrap; }
-.statusbar__right a { color: var(--ink-dim); border-bottom-color: var(--rule-hot); }
-.statusbar__right a:hover { color: var(--bg); }
-
-@media (max-width: 640px) {
-  /* The hero already shows the marketplace URL; the nav needs the width. */
-  .statusbar__right { display: none; }
-}
-@media (max-width: 480px) {
-  .statusbar { gap: 0.75rem; }
-  .statusbar__nav { gap: 0.85rem; font-size: 0.78rem; }
-}
-
 /* Layout ------------------------------------------------------------- */
 
 main {
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: clamp(2rem, 6vw, 4.5rem) var(--pad) 4rem;
-}
-
-.block {
-  margin-top: clamp(3rem, 7vw, 5rem);
-  padding-top: clamp(1.5rem, 4vw, 2.25rem);
-  border-top: 1px dashed var(--rule);
-}
-
-.block__head {
-  display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
-  margin-bottom: 1.6rem;
-  padding-bottom: 0.7rem;
-  border-bottom: 1px solid var(--rule);
-}
-.block__head h2 {
-  margin: 0;
-  font: 700 clamp(1.25rem, 2.4vw, 1.6rem)/1.25 var(--mono);
-  color: var(--ink);
-}
-.block__meta {
-  margin-left: auto;
-  font-size: 0.8125rem;
-  color: var(--ink-mute);
 }
 
 /* Hero --------------------------------------------------------------- */
@@ -235,14 +179,6 @@ main {
   letter-spacing: 0;
   color: var(--ink-dim);
 }
-.hero__lead {
-  max-width: var(--maxw);
-  margin: 0 0 2rem;
-  font-size: 1.05rem;
-  color: var(--ink);
-}
-.hero__lead + .hero__lead { margin-top: -1.25rem; color: var(--ink-dim); font-size: 0.95rem; }
-
 /* Card (the window idiom from whirlwin.io) --------------------------- */
 
 .card {
@@ -257,8 +193,6 @@ main {
   padding: 0.55rem 0.85rem;
   background: var(--bg-3);
   border-bottom: 1px solid var(--rule);
-  font-size: 0.78rem;
-  color: var(--ink-mute);
 }
 .card__dot {
   flex: none;
@@ -268,25 +202,13 @@ main {
 .card__dot:nth-child(1) { background: #6b3a3a; }
 .card__dot:nth-child(2) { background: #6b5a3a; }
 .card__dot:nth-child(3) { background: #3a6b48; }
-.card__title {
-  margin-left: 0.5rem;
-  min-width: 0;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
+.card__title { min-width: 0; }
 .card__body { padding: 1.1rem 1.15rem 1.25rem; }
-
-.card--terminal { max-width: 52rem; }
 
 /* Commands ----------------------------------------------------------- */
 
-.cmd + .cmd { margin-top: 1rem; }
-.cmd__where {
-  margin: 0 0 0.4rem;
-  font-size: 0.82rem;
-  color: var(--ink-dim);
-}
 .cmd__line {
-  display: flex; align-items: flex-start; gap: 0.7rem;
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.7rem;
   padding: 0.55rem 0.55rem 0.55rem 0.85rem;
   background: var(--bg);
   border: 1px solid var(--rule);
@@ -302,20 +224,22 @@ main {
   font-weight: 700;
   color: var(--phosphor);
 }
-.cmd__line--shell::before { content: "$"; }
+/* The copy button wraps below the command, so the code gets the full width
+   and the URL breaks only at its <wbr>. At 0.8rem the longest piece,
+   https://themes.whirlwin.io, still fits a card three across at 1024px. */
 .cmd__text {
-  flex: 1; min-width: 0;
+  flex: 1 1 calc(100% - 1.5rem); min-width: 0;
   padding-top: 0.15rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--ink);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-/* A plugin id moves to the next line whole rather than breaking at its
-   hyphen, and only wraps inside when a line is too narrow to hold it. */
-.cmd__id { display: inline-block; }
+/* The flag never splits at its hyphens; the line breaks before it instead. */
+.cmd__flag { white-space: nowrap; }
 .copy {
   flex: none;
+  margin-left: auto;
   min-height: 28px;
   padding: 0.15rem 0.6rem;
   font: inherit;
@@ -328,16 +252,20 @@ main {
 }
 .copy:hover { color: var(--bg); background: var(--phosphor); border-color: var(--phosphor); }
 .copy[hidden] { display: none; }
-.cmd__after {
-  margin: 1.1rem 0 0;
-  font-size: 0.85rem;
-  color: var(--ink-dim);
-}
-.cmd__after code { color: var(--ink); }
 
 /* Theme cards -------------------------------------------------------- */
 
-.themes { display: grid; gap: 1.5rem; }
+/* One capped column below 1024px: three cards squeeze the install command
+   there, and two columns would leave one card alone. */
+.themes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 30rem;
+  gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .themes { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; }
+}
 
 /* Each card wears its theme's colors: a bar across the top, a faint wash
    under the window chrome, the name and the rule beside its commands.
@@ -361,7 +289,6 @@ main {
 .theme--halloween {
   --accent: #ff7518;
   --accent-text: #ff7518;
-  --accent-code: #b38be6;
   --accent-bar: linear-gradient(90deg, #ff7518 0 45%, #8e4fd6);
 }
 .theme--hackernews {
@@ -373,104 +300,42 @@ main {
   --accent-text: #ff5a3d;
 }
 
-.theme__body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1.5rem 2.25rem;
-}
-/* Side by side only from the width where the longest install command,
-   /plugin install hackernews@whirlwin-themes, fits its column on one line. */
-@media (min-width: 1100px) {
-  .theme__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-}
-@media (min-width: 880px) {
-  .theme__body--aside { grid-template-columns: minmax(0, 1fr) auto; }
-}
-
 .theme__name {
-  margin: 0 0 0.6rem;
-  font-size: 1.3rem;
+  margin: 0 0 0 0.5rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.01em;
-  color: var(--accent-text);
 }
-.theme__name::before { content: "\203A  "; color: var(--ink-mute); font-weight: 400; }
-.theme__desc {
-  max-width: var(--maxw);
-  margin: 0 0 0.9rem;
-  font-size: 0.92rem;
-  color: var(--ink-dim);
-}
-.theme__desc strong { color: var(--ink); font-weight: 500; }
-.theme__repo {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--ink-dim);
-  overflow-wrap: anywhere;
-}
-.theme__label {
-  margin: 0 0 0.4rem;
-  font-size: 0.82rem;
-  color: var(--ink-dim);
-}
-.theme__use > * + .theme__label { margin-top: 1.1rem; }
-.theme__text > .theme__use { margin-top: 1.4rem; }
+.theme__name a { color: var(--accent-text); border-bottom-color: var(--accent); }
+.theme__name a:hover { color: var(--bg); background: var(--accent-text); }
 
-.usage { margin: 0; font-size: 0.88rem; }
-.usage > div {
-  display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
-  gap: 0.2rem 1rem;
-  padding: 0.4rem 0;
-  border-bottom: 1px dotted var(--rule-hot);
-}
-.usage > div:first-child { padding-top: 0; }
-.usage dt code { color: var(--accent-code, var(--ink)); }
-.usage dd { margin: 0; color: var(--ink-dim); }
-@media (max-width: 480px) {
-  .usage > div { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* Screenshots -------------------------------------------------------- */
-
-.theme__media { display: grid; gap: 1.5rem; margin-top: 1.75rem; }
-.shot { margin: 0; min-width: 0; }
+/* The spinner recording, cropped to the spinner and the first lines of the
+   session. It is drawn at its own size or smaller, never scaled up. */
 .shot__frame {
   max-width: 100%;
   width: fit-content;
+  margin: 0 0 1rem;
   line-height: 0;
   background: #1e1e1e;
   border: 1px solid var(--rule-hot);
   border-radius: var(--radius);
   overflow: hidden;
 }
-.shot__frame img { display: block; max-width: 100%; height: auto; }
-.shot figcaption {
-  margin-top: 0.55rem;
-  max-width: var(--maxw);
-  font-size: 0.8rem;
-  color: var(--ink-mute);
+.shot__frame picture { display: block; }
+.shot__frame img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
-.shot figcaption a { color: var(--ink-dim); border-bottom-color: var(--rule-hot); }
-.shot figcaption a:hover { color: var(--bg); }
-
-/* The costume frames are a tall column, drawn at half their pixel size. */
-.shot--tall img { width: 220px; }
-/* The animation strips are drawn at half size too, and scroll inside their
-   own frame when the screen is narrower than that. */
-.shot--strip .shot__frame { overflow-x: auto; }
-.shot--strip img { width: 904px; max-width: none; }
-/* Scaled to a phone's width, the session's text is too small to read, so
-   there it keeps its own size and scrolls like the strips. */
-@media (max-width: 720px) {
-  .shot--demo .shot__frame { overflow-x: auto; }
-  .shot--demo img { width: 983px; max-width: none; }
+/* Long headlines are cut at the right edge; the fade makes that look
+   intended. */
+.shot__frame--cut img {
+  -webkit-mask-image: linear-gradient(to right, #000 80%, transparent);
+  mask-image: linear-gradient(to right, #000 80%, transparent);
 }
 
 @media (max-width: 480px) {
   .card__body { padding: 0.95rem 0.8rem 1.1rem; }
   .cmd__line { gap: 0.55rem; padding-left: 0.65rem; }
-  .cmd__text { font-size: 0.84rem; }
 }
 
 /* 404 ---------------------------------------------------------------- */
@@ -490,50 +355,7 @@ main {
 }
 .lost__out .prompt { color: var(--phosphor); font-weight: 700; }
 
-/* Notes -------------------------------------------------------------- */
-
-.notes {
-  max-width: 78ch;
-  margin: 0; padding: 0;
-  list-style: none;
-  font-size: 0.95rem;
-  color: var(--ink-dim);
-}
-.notes li {
-  position: relative;
-  padding: 0 0 0 1.6rem;
-}
-.notes li + li { margin-top: 1rem; }
-.notes li::before {
-  content: "\203A";
-  position: absolute; left: 0.3rem;
-  color: var(--phosphor);
-  font-weight: 700;
-}
-.notes strong { color: var(--ink); font-weight: 700; }
-.notes code, .prose code {
-  padding: 0 0.3rem;
-  font-size: 0.9em;
-  color: var(--ink);
-  background: var(--bg-3);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  overflow-wrap: anywhere;
-}
 .prose { max-width: var(--maxw); color: var(--ink-dim); }
-
-/* Footer ------------------------------------------------------------- */
-
-.footer {
-  padding: 2rem var(--pad) 3rem;
-  border-top: 1px solid var(--rule);
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--ink-mute);
-}
-.footer p { margin: 0.35rem 0; }
-.footer a { color: var(--ink-dim); border-bottom-color: var(--rule-hot); }
-.footer a:hover { color: var(--bg); background: var(--phosphor); }
 
 /* Entry: the title rises in once ------------------------------------ */
 

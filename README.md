@@ -11,15 +11,30 @@ repo holds the catalog that lists them and the page that shows them.
 | Hacker News | `hackernews` | [whirlwin/claude-code-hackernews](https://github.com/whirlwin/claude-code-hackernews) |
 | VG | `vg` | [whirlwin/claude-code-vg](https://github.com/whirlwin/claude-code-vg) |
 
-Add the marketplace in a Claude Code session, then install a theme:
+Install a theme in a Claude Code session:
 
 ```
-/plugin marketplace add https://themes.whirlwin.io/marketplace.json
-/plugin install halloween@whirlwin-themes
+/plugin install halloween --marketplace https://themes.whirlwin.io/marketplace.json
 ```
 
-From a shell, the first line is
-`claude plugin marketplace add https://themes.whirlwin.io/marketplace.json`.
+It asks to add the marketplace first if it is not added yet, then installs.
+From a shell, the command is
+`claude plugin install halloween --marketplace https://themes.whirlwin.io/marketplace.json`.
+
+## Good to know
+
+- Only one theme can draw the spinner at a time. Hide one with its own
+  command, such as `/halloween`, or keep it off with
+  `claude plugin disable halloween@whirlwin-themes`.
+- If you installed a theme from its own repo before
+  (`halloween@claude-code-halloween`, `hackernews@claude-code-hackernews`,
+  `vg@claude-code-vg`), uninstall that copy first, for example
+  `claude plugin uninstall halloween@claude-code-halloween`.
+- To update, run `claude plugin marketplace update whirlwin-themes`, then
+  `claude plugin update <theme>@whirlwin-themes`, then `/reload-plugins` in
+  an open session.
+- In the desktop app only the spinner's word changes. The tiles, the Clawd
+  and the links need the terminal.
 
 ## Layout
 
@@ -28,14 +43,15 @@ From a shell, the first line is
 | `.claude-plugin/marketplace.json` | The catalog, and its only copy in git |
 | `wrangler.jsonc` | The Worker: static assets only, no code, on themes.whirlwin.io |
 | `public/` | The site: plain HTML and CSS, no framework and no build step |
-| `public/index.html` | The page, with one card per theme |
+| `public/index.html` | The page: the title and one card per theme |
 | `public/404.html` | Served for any path that has no file |
 | `public/copy.js` | The copy buttons, the only script on the site |
 | `public/_headers` | Security headers for every response, plus the content type, cache and CORS headers for `/marketplace.json` |
-| `public/images/` | The themes' pictures, copied from each repo's `docs/`, the whirlwin.io wordmark and the grain overlay |
+| `public/images/` | Each theme's spinner GIF and its reduced-motion still (cropped from its repo's `docs/demo.gif`), the whirlwin.io wordmark and the grain overlay |
 | `public/fonts/` | JetBrains Mono and its license (OFL), served by the site so the CSP allows no other origin |
 | `public/og.png` | The link preview picture, rendered from `og/card.html` |
 | `og/card.html` | The source of `og.png`, not deployed |
+| `og/images/` | The pictures `og/card.html` uses, not deployed |
 | `scripts/check.sh` | The consistency check that `npm run check` runs |
 
 The look (colors, the card with its window dots, the status bar and the
@@ -83,7 +99,8 @@ npm run check
 It runs `claude plugin validate .`, then `scripts/check.sh`, which fails when:
 
 - a catalog entry has no card on the page, or a card has no entry
-- a card does not show `/plugin install <name>@whirlwin-themes`
+- a card's code element is not exactly
+  `/plugin install <name> --marketplace https://themes.whirlwin.io/marketplace.json`
 - a `src`, `href`, CSS `url()` or `og:image` points at a file that is not in
   `public/`, or at an `id` the page does not have
 - a file in this repo that we write has an en or em dash
@@ -111,13 +128,24 @@ with `npx wrangler login`.
    and when both are set `claude plugin validate` warns that they disagree.
 2. Add a card to `public/index.html`. Copy one of the
    `<article class="card theme ...">` elements and set its `id` to the plugin
-   name. Give it the install command, the theme's own commands, a link to its
-   repo, and its pictures, copied into `public/images/` and described in `alt`
-   text. The first picture is the repo's `docs/demo.gif`, a real session
-   cropped to the spinner and the prompt box, 983x179 like the others, in a
-   `shot--demo` figure. Add a `.theme--<name>` rule to `styles.css` with its `--accent`
-   color, plus a lighter `--accent-text` if the accent has less than 4.5:1
-   contrast on the dark background. Add the theme to the status bar too.
+   name. A card is the window chrome with the theme's name linking to its
+   repo, the spinner GIF and the install command. The GIF is the top of the
+   repo's `docs/demo.gif`, a real session recording, cropped to the spinner
+   and the first lines under it, 360x88. Run this from the theme repo and
+   copy the results into `public/images/` (`brew install gifsicle` if you do
+   not have it). The PNG is frame 0, shown to people who prefer reduced
+   motion:
+
+   ```sh
+   gifsicle --crop 0,0+360x88 -O3 docs/demo.gif -o <name>-spinner.gif
+   gifsicle --crop 0,0+360x88 docs/demo.gif '#0' -o frame.gif
+   sips -s format png frame.gif --out <name>-spinner.png
+   ```
+
+   Describe it in the `alt` text. If the theme's text runs past the crop, add
+   `shot__frame--cut` to the frame so the right edge fades. Add a `.theme--<name>` rule to `styles.css`
+   with its `--accent` color, plus a lighter `--accent-text` if the accent has
+   less than 4.5:1 contrast on the dark background.
 3. Run `npm run check`, then `npm run deploy`.
 
 People who already added the marketplace see the new theme after
@@ -135,7 +163,8 @@ clone URL of a public repo needs nothing.
 ## Link preview
 
 `og.png` is `og/card.html` screenshotted at exactly 1200x627. The card loads
-its pictures from `/public/...`, so serve the repo root, not `public/`:
+its pictures from `/og/images/` and its font from `/public/fonts/`, so serve
+the repo root, not `public/`:
 
 ```sh
 python3 -m http.server 8790

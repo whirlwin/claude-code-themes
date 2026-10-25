@@ -19,16 +19,18 @@ problem() {
 }
 
 # Every catalog entry has a card, an <article class="card theme" id="<name>">,
-# that carries its install command, and every card has an entry.
-marketplace=$(jq -r .name "$catalog")
+# that carries its install command, and every card has an entry. The copy
+# button copies the text of the card's code element, so that text must be
+# exactly the command, which adds the marketplace first if it is missing.
 names=$(jq -r '.plugins[].name' "$catalog")
-# The commands carry markup for line breaking, so match them as text.
-page_text=$(sed -E 's/<[^>]+>//g' "$page")
 for name in $names; do
   grep -Eq "<article class=\"card theme[^\"]*\" id=\"$name\"" "$page" ||
     problem "index.html has no card for \"$name\": <article class=\"card theme ...\" id=\"$name\">"
-  grep -Fq "/plugin install $name@$marketplace" <<<"$page_text" ||
-    problem "index.html does not show \"/plugin install $name@$marketplace\""
+  cmd="/plugin install $name --marketplace $site/marketplace.json"
+  # The command carries markup for line breaking, so compare it as text.
+  got=$(sed -n "/<article class=\"card theme[^\"]*\" id=\"$name\"/,/<\/article>/p" "$page" |
+    grep -o '<code class="cmd__text">.*</code>' | sed -E 's/<[^>]+>//g')
+  [ "$got" = "$cmd" ] || problem "card #$name copies \"$got\", not \"$cmd\""
 done
 cards=$(grep -Eo '<article class="card theme[^"]*" id="[^"]+"' "$page" | sed -E 's/.*id="([^"]+)"/\1/')
 for card in $cards; do
