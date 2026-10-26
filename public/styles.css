@@ -179,6 +179,12 @@ main {
   letter-spacing: 0;
   color: var(--ink-dim);
 }
+.hero__lead {
+  max-width: var(--maxw);
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
 /* Card (the window idiom from whirlwin.io) --------------------------- */
 
 .card {

@@ -1,8 +1,9 @@
 # Claude Code themes
 
 The site and the Claude Code plugin marketplace at
-<https://themes.whirlwin.io>. A theme is a Claude Code mod that takes over
-the spinner while Claude works. Each theme is a plugin in its own repo; this
+<https://themes.whirlwin.io>. A theme is a
+[Claude Code mod](https://code.claude.com/docs/en/plugins/mods/overview)
+that takes over the spinner while Claude works. Each theme is a plugin in its own repo; this
 repo holds the catalog that lists them and the page that shows them.
 
 | Theme | Plugin | Repo |
@@ -43,7 +44,7 @@ From a shell, the command is
 | `.claude-plugin/marketplace.json` | The catalog, and its only copy in git |
 | `wrangler.jsonc` | The Worker: static assets only, no code, on themes.whirlwin.io |
 | `public/` | The site: plain HTML and CSS, no framework and no build step |
-| `public/index.html` | The page: the title and one card per theme |
+| `public/index.html` | The page: the title, two sentences on what a mod is, and one card per theme |
 | `public/404.html` | Served for any path that has no file |
 | `public/copy.js` | The copy buttons, the only script on the site |
 | `public/_headers` | Security headers for every response, plus the content type, cache and CORS headers for `/marketplace.json` |
